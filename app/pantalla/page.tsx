@@ -168,15 +168,21 @@ function Specialty({ counts, spotlight }: { counts: Record<string, number>; spot
 
 function Final({ joinUrl }: { joinUrl: string }) {
   return (
-    <div className="lobby">
-      <div className="lobby__text">
-        <span className="kicker">¡Gracias!</span>
-        <h1>Descarga tu {WORKSHOP.pdfTitle}</h1>
-        <p>Ya está disponible en tu móvil. Si recién llegas, escanea el código.</p>
-        <div className="lobby__url">{joinUrl.replace(/^https?:\/\//, '')}</div>
-      </div>
-      <div className="lobby__qr">
-        {joinUrl && <QRCodeSVG value={joinUrl} size={512} marginSize={2} />}
+    <div className="final">
+      <span className="kicker">¡Gracias!</span>
+      <div className="final__grid">
+        <div className="final__item">
+          <h2>Descarga tu {WORKSHOP.pdfTitle}</h2>
+          <div className="lobby__qr">{joinUrl && <QRCodeSVG value={joinUrl} size={512} marginSize={2} />}</div>
+          <p>Ya está en tu móvil. Si recién llegas, escanea el código.</p>
+          <div className="final__url">{joinUrl.replace(/^https?:\/\//, '')}</div>
+        </div>
+        <div className="final__item final__item--forms">
+          <h2>{WORKSHOP.formsTitle}</h2>
+          <div className="lobby__qr"><QRCodeSVG value={WORKSHOP.formsUrl} size={512} marginSize={2} /></div>
+          <p>Escanea para inscribirte en las próximas grabaciones de la marca.</p>
+          <div className="final__url">{WORKSHOP.formsUrl.replace(/^https?:\/\//, '')}</div>
+        </div>
       </div>
     </div>
   );

@@ -382,6 +382,12 @@ function Final({ me }: { me: Me }) {
         </ul>
         <a className="btn" href={WORKSHOP.pdfFile} download>Descargar PDF</a>
       </div>
+      <div className="card card--forms">
+        <span className="kicker">Próximas grabaciones</span>
+        <h2>{WORKSHOP.formsTitle}</h2>
+        <p>{WORKSHOP.formsText}</p>
+        <a className="btn" href={WORKSHOP.formsUrl} target="_blank" rel="noreferrer">Quiero participar</a>
+      </div>
       {tips && me.specialty && (
         <div className="card">
           <span className="kicker">Tu camino: {roleLabel(me.specialty)}</span>

@@ -69,7 +69,7 @@ Para un enlace corto, elige un nombre de proyecto breve en Vercel (**Settings �
 2. Pulsa **Abrir pantalla de proyección** y lleva esa ventana al proyector (F11 para pantalla completa).
 3. Flujo con el botón principal: **Abrir pregunta 1 → Cerrar respuestas → Abrir pregunta 2 → … → Ir al cierre y liberar el PDF**.
 4. Los textos (pregunta 1 y explicaciones de la 2) **no se proyectan hasta que los apruebes**. "Ocultar" los retira de la pantalla.
-5. En la pregunta 3, toca un rol en el panel para proyectar sus consejos junto al gráfico.
+5. En la pregunta 2 (especialización), toca un rol en el panel para proyectar sus consejos junto al gráfico.
 
 El temporizador es solo una guía visual: las respuestas se cierran cuando tú lo decides.
 

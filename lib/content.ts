@@ -11,6 +11,10 @@ export const WORKSHOP = {
   subtitle: 'Responde desde tu móvil y mira los resultados en la pantalla.',
   pdfFile: '/kit-inicio-community-managers.pdf',
   pdfTitle: 'Kit de inicio para Community Managers',
+  // Sección final: participar en próximas grabaciones de la marca
+  formsUrl: 'https://forms.gle/znxiRdLZJMcXWUPN6',
+  formsTitle: 'Participa en las próximas grabaciones',
+  formsText: 'Si quieres ser parte de las próximas grabaciones de la marca, déjanos tus datos en el formulario.',
 };
 
 export type Role = { id: string; label: string; short: string; lines: string[] };
@@ -48,8 +52,8 @@ export const QUESTIONS = {
     maxChars: 120,
   },
   q2: {
-    n: 2,
-    kicker: 'Roles dentro de una agencia',
+    n: 3,
+    kicker: 'Cierre · roles dentro de una agencia',
     title: '¿Cómo se conectan?',
     hint: 'Una marca va a lanzar una campaña. ¿Con qué tres roles debería colaborar más de cerca el Community Manager?',
     seconds: 90,
@@ -57,8 +61,8 @@ export const QUESTIONS = {
     maxChars: 100,
   },
   q3: {
-    n: 3,
-    kicker: 'Cierre',
+    n: 2,
+    kicker: 'Especialización',
     title: '¿En qué te quieres especializar?',
     hint: 'Elige una sola opción. No hay respuestas correctas.',
     seconds: 45,
@@ -67,12 +71,13 @@ export const QUESTIONS = {
 
 export type QuestionId = keyof typeof QUESTIONS;
 export type Phase = 'lobby' | QuestionId | 'final';
-export const PHASES: Phase[] = ['lobby', 'q1', 'q2', 'q3', 'final'];
+// Orden en que se presentan: la especialización (q3) va antes que el mapa de roles (q2)
+export const PHASES: Phase[] = ['lobby', 'q1', 'q3', 'q2', 'final'];
 export const PHASE_LABEL: Record<Phase, string> = {
   lobby: 'Sala de espera',
   q1: '1 · Apertura',
-  q2: '2 · Roles',
-  q3: '3 · Especialización',
+  q3: '2 · Especialización',
+  q2: '3 · Roles',
   final: 'Cierre y PDF',
 };
 

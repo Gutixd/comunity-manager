@@ -340,3 +340,16 @@ button, input, textarea { font: inherit; color: inherit; }
 
 .card .showpass { display: flex; align-items: center; gap: 0.5em; font-weight: 500; font-size: 0.9rem; color: var(--texto-2); }
 .showpass input { width: 1.1em; height: 1.1em; accent-color: var(--fucsia); }
+
+.card--forms { background: var(--amarillo); color: #2a0f45; border-color: transparent; box-shadow: 6px 6px 0 var(--violeta); }
+.card--forms .kicker { color: var(--fucsia-osc); }
+.card--forms .btn { background: #2a0f45; box-shadow: 0 5px 0 #000; }
+
+.final { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.6em; }
+.final__grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 3em; }
+.final__item { display: flex; flex-direction: column; align-items: center; gap: 0.8em; text-align: center; min-height: 0; }
+.final__item h2 { font-size: 2.2em; }
+.final__item .lobby__qr { flex: 1; min-height: 0; width: auto; aspect-ratio: 1; max-width: 100%; }
+.final__item p { font-size: 1.3em; color: var(--texto-2); }
+.final__url { font-family: var(--display); font-weight: 800; font-size: 1.6em; background: var(--amarillo); color: #2a0f45; padding: 0.15em 0.6em; border-radius: 0.4em; word-break: break-all; }
+.final__item--forms .lobby__qr { box-shadow: 0.8em 0.8em 0 var(--amarillo); transform: rotate(-2deg); }
