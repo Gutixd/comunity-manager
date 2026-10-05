@@ -24,10 +24,14 @@ pdf.setLanguage('es');
 const regular = await pdf.embedFont(StandardFonts.Helvetica);
 const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
 
+// Helvetica estándar no dibuja emojis: se quitan del texto
+const strip = (s) =>
+  String(s).replace(/[\u{1F000}-\u{1FFFF}\u2600-\u27BF\uFE0F\u200D]/gu, '').replace(/\u2026/g, '...').replace(/\s+/g, ' ').trim();
+
 function wrap(text, font, size, maxWidth) {
   const lines = [];
   let line = '';
-  for (const word of String(text).split(/\s+/)) {
+  for (const word of strip(text).split(' ')) {
     const next = line ? `${line} ${word}` : word;
     if (line && font.widthOfTextAtSize(next, size) > maxWidth) {
       lines.push(line);
@@ -69,17 +73,72 @@ function newPage(section) {
   box(page, 0, H, W, H, { color: C.oscuro });
   page.drawCircle({ x: W - 40, y: H - 60, size: 190, color: C.acento });
   page.drawCircle({ x: 20, y: 30, size: 95, color: C.secundario });
-  let y = text(page, p.etiqueta.toUpperCase(), M, H - 250, { font: bold, size: 9.5, color: C.resalte, width: CW - 120 });
+  let y = text(page, p.etiqueta.toUpperCase(), M, H - 200, { font: bold, size: 9.5, color: C.resalte, width: CW - 120 });
   y = text(page, p.titulo, M, y - 14, { font: bold, size: 44, color: WHITE, width: CW - 60, lead: 1.05 });
   y = text(page, p.bajada, M, y - 14, { size: 14, color: WHITE, width: CW - 140 });
   y -= 34;
   p.contenido.forEach((item, i) => {
-    box(page, M, y, 26, 26, { color: C.acento });
-    page.drawText(String(i + 1), { x: M + 9, y: y - 18.5, font: bold, size: 13, color: WHITE });
-    text(page, item, M + 38, y - 6, { font: bold, size: 13, color: WHITE });
-    y -= 38;
+    box(page, M, y, 22, 22, { color: C.acento });
+    page.drawText(String(i + 1), { x: M + 7.5, y: y - 15.5, font: bold, size: 11, color: WHITE });
+    text(page, item, M + 32, y - 5, { font: bold, size: 12, color: WHITE, width: CW - 80 });
+    y -= 29;
   });
   text(page, p.pie, M + 150, 60, { size: 9.5, color: WHITE, width: CW - 150 });
+}
+
+
+/** "Título: detalle" → título en negrita y detalle debajo. Devuelve la y final. */
+function lead(page, str, x, y, width, { size = 10.5, gap = 0 } = {}) {
+  const clean = strip(str);
+  const i = clean.indexOf(': ');
+  if (i < 0) return text(page, clean, x, y, { size, width }) - gap;
+  y = text(page, clean.slice(0, i), x, y, { font: bold, size: size + 1, width });
+  return text(page, clean.slice(i + 2), x, y - 1, { size: size - 0.5, color: GREY, width }) - gap;
+}
+
+function leadHeight(str, width, size = 10.5) {
+  const clean = strip(str);
+  const i = clean.indexOf(': ');
+  if (i < 0) return wrap(clean, regular, size, width).length * size * 1.35;
+  return (
+    wrap(clean.slice(0, i), bold, size + 1, width).length * (size + 1) * 1.35 +
+    wrap(clean.slice(i + 2), regular, size - 0.5, width).length * (size - 0.5) * 1.35 + 1
+  );
+}
+
+function numberedList(section) {
+  let { page, y } = newPage(section);
+  section.items.forEach((item, i) => {
+    page.drawCircle({ x: M + 10, y: y - 9, size: 10, color: C.acento });
+    const n = String(i + 1);
+    page.drawText(n, { x: M + 10 - bold.widthOfTextAtSize(n, 9) / 2, y: y - 12, font: bold, size: 9, color: WHITE });
+    y = lead(page, item, M + 30, y - 1, CW - 30, { size: 12, gap: 15 });
+  });
+}
+
+/* ---------- Best practices ---------- */
+numberedList(kit.agencia);
+numberedList(kit.community);
+
+/* ---------- Do & Don't ---------- */
+{
+  const s = kit.dodont;
+  let { page, y } = newPage(s);
+  const colW = (CW - 10) / 2;
+  const textW = colW - 22;
+  [[s.do, C.acento, M], [s.dont, C.oscuro, M + colW + 10]].forEach(([label, color, x]) => {
+    box(page, x, y, colW, 26, { color });
+    page.drawText(label, { x: x + 12, y: y - 18, font: bold, size: 13, color: WHITE });
+  });
+  y -= 26;
+  s.pares.forEach(([yes, no], r) => {
+    const h = Math.max(leadHeight(yes, textW, 11.5), leadHeight(no, textW, 11.5)) + 22;
+    box(page, M, y, CW, h, { color: r % 2 ? C.suave : WHITE, borderColor: GREY, borderWidth: 0.4 });
+    page.drawLine({ start: { x: M + colW + 5, y }, end: { x: M + colW + 5, y: y - h }, thickness: 0.4, color: GREY });
+    lead(page, yes, M + 12, y - 11, textW, { size: 11.5 });
+    lead(page, no, M + colW + 22, y - 11, textW, { size: 11.5 });
+    y -= h;
+  });
 }
 
 /* ---------- Calendario ---------- */
@@ -223,6 +282,60 @@ function newPage(section) {
     text(page, detalle, x + 12, ty - 15, { size: 9, color: GREY, width: colW - 14 });
   });
   text(page, s.nota, M, y - half * rowH - 6, { size: 9, color: GREY });
+}
+
+
+/* ---------- Quiz ---------- */
+{
+  const s = kit.quiz;
+  let { page, y } = newPage(s);
+  s.preguntas.forEach(([pregunta, opciones]) => {
+    y = text(page, pregunta, M, y, { font: bold, size: 12.5, width: CW }) - 4;
+    opciones.forEach((op, i) => {
+      page.drawText('ABCDE'[i], { x: M + 8, y: y - 10, font: bold, size: 10.5, color: C.acento });
+      y = text(page, op, M + 26, y, { size: 11, width: CW - 26 }) - 3.5;
+    });
+    y -= 14;
+  });
+  box(page, M, y, CW, 34, { color: C.suave, borderColor: C.acento, borderWidth: 1 });
+  page.drawText(s.anota, { x: M + 12, y: y - 21, font: bold, size: 10.5, color: C.texto });
+  'ABCDE'.split('').forEach((l, i) => {
+    const x = M + 110 + i * 70;
+    page.drawText(`${l}:`, { x, y: y - 21, font: bold, size: 10.5, color: C.acento });
+    page.drawLine({ start: { x: x + 16, y: y - 23 }, end: { x: x + 52, y: y - 23 }, thickness: 0.7, color: GREY });
+  });
+}
+
+/* ---------- Resultados del quiz ---------- */
+{
+  const s = kit.resultados;
+  let { page, y } = newPage(s);
+  s.items.forEach(([letra, titulo, desc]) => {
+    const h = wrap(desc, regular, 11.5, CW - 70).length * 15.5 + 42;
+    box(page, M, y, CW, h, { color: C.suave });
+    box(page, M, y, 44, h, { color: C.acento });
+    page.drawText(letra, { x: M + 22 - bold.widthOfTextAtSize(letra, 22) / 2, y: y - h / 2 - 8, font: bold, size: 22, color: WHITE });
+    page.drawText(strip(titulo).toUpperCase(), { x: M + 58, y: y - 20, font: bold, size: 11.5, color: C.acento });
+    text(page, desc, M + 58, y - 30, { size: 11.5, width: CW - 70 });
+    y -= h + 10;
+  });
+  const h = wrap(s.cierre, bold, 11, CW - 28).length * 15 + 22;
+  box(page, M, y - 6, CW, h, { color: C.resalte });
+  text(page, s.cierre, M + 14, y - 16, { font: bold, size: 11, width: CW - 28, lead: 1.4 });
+}
+
+/* ---------- LinkedIn ---------- */
+{
+  const s = kit.linkedin;
+  let { page, y } = newPage(s);
+  s.items.forEach((item) => {
+    box(page, M, y, 4, leadHeight(item, CW - 20, 13) + 2, { color: C.acento });
+    y = lead(page, item, M + 16, y - 1, CW - 20, { size: 13, gap: 24 });
+  });
+  y -= 10;
+  const h = wrap(s.cierre, bold, 14, CW - 40).length * 20 + 30;
+  box(page, M, y, CW, h, { color: C.oscuro });
+  text(page, s.cierre, M + 20, y - 18, { font: bold, size: 14, color: WHITE, width: CW - 40, lead: 1.4 });
 }
 
 const out = path.join(root, kit.archivo);
