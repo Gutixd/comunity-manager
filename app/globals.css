@@ -337,3 +337,6 @@ button, input, textarea { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+.card .showpass { display: flex; align-items: center; gap: 0.5em; font-weight: 500; font-size: 0.9rem; color: var(--texto-2); }
+.showpass input { width: 1.1em; height: 1.1em; accent-color: var(--fucsia); }
