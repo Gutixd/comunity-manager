@@ -1,0 +1,108 @@
+{
+  "_nota": "Edita estos textos y colores y luego ejecuta: npm run pdf",
+  "archivo": "public/kit-inicio-community-managers.pdf",
+  "tema": {
+    "acento": "#ff2d92",
+    "oscuro": "#22093a",
+    "secundario": "#8f6bff",
+    "resalte": "#ffe45c",
+    "texto": "#1d0a2e",
+    "suave": "#f7eef5"
+  },
+  "portada": {
+    "etiqueta": "Workshop · Community Manager & Influencer Marketing",
+    "titulo": "Kit de inicio para Community Managers",
+    "bajada": "Cuatro herramientas simples para ordenar tu trabajo desde el primer día.",
+    "contenido": [
+      "Plantilla de calendario de contenidos",
+      "Checklist para publicar",
+      "Guía breve de respuesta a comentarios y mensajes",
+      "Mapa de roles de la agencia"
+    ],
+    "pie": "Imprime o duplica las páginas que necesites."
+  },
+  "calendario": {
+    "titulo": "Calendario de contenidos",
+    "bajada": "Una semana por hoja. Completa primero el objetivo y los pilares; después las publicaciones.",
+    "campos": ["Marca / cuenta", "Semana del", "Objetivo de la semana"],
+    "pilares": ["Pilar 1", "Pilar 2", "Pilar 3", "Pilar 4"],
+    "columnas": ["Día", "Red", "Formato", "Tema / idea", "Copy y llamado a la acción", "Estado"],
+    "anchos": [0.09, 0.11, 0.12, 0.25, 0.31, 0.12],
+    "dias": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+    "nota": "Estados sugeridos: idea · en diseño · en revisión · aprobado · programado · publicado."
+  },
+  "checklist": {
+    "titulo": "Checklist para publicar",
+    "bajada": "Repásala antes de apretar \"publicar\". Dos minutos que evitan la mayoría de los errores.",
+    "grupos": [
+      {
+        "nombre": "Antes de publicar",
+        "items": [
+          "La pieza responde a un objetivo y a un pilar de contenido.",
+          "Texto revisado: ortografía, tono de la marca y datos correctos.",
+          "Formato y medidas correctos para la red y la ubicación.",
+          "Logo, colores y tipografías según el manual de marca.",
+          "Llamado a la acción claro y enlace probado.",
+          "Menciones, etiquetas y hashtags verificados.",
+          "Aprobación del cliente o de quien corresponda."
+        ]
+      },
+      {
+        "nombre": "Al publicar",
+        "items": [
+          "Cuenta correcta (revisa dos veces si administras varias).",
+          "Fecha y hora programadas según el calendario.",
+          "Texto alternativo y subtítulos para accesibilidad.",
+          "Vista previa revisada en el móvil."
+        ]
+      },
+      {
+        "nombre": "Después de publicar",
+        "items": [
+          "Responder los primeros comentarios y mensajes.",
+          "Derivar consultas o reclamos al área que corresponde.",
+          "Registrar resultados e ideas para el próximo contenido."
+        ]
+      }
+    ]
+  },
+  "respuestas": {
+    "titulo": "Guía de respuesta a comentarios y mensajes",
+    "bajada": "Un orden simple para responder con criterio, incluso cuando el mensaje es difícil.",
+    "pasos": [
+      ["Lee completo", "Entiende qué pide la persona antes de escribir. Revisa si ya escribió antes."],
+      ["Clasifica", "¿Es una consulta, un elogio, un reclamo o una provocación?"],
+      ["Responde con el tono de la marca", "Saluda, usa el nombre si lo tienes y contesta lo que se preguntó."],
+      ["Deriva si no puedes resolver", "Lleva el caso a privado o al área correspondiente y avisa a la persona qué pasará."],
+      ["Registra", "Anota preguntas frecuentes y casos difíciles: son insumos para contenido y para el equipo."]
+    ],
+    "tipos": [
+      ["Consulta", "Responde directo y agrega el siguiente paso.", "\"¡Hola, [nombre]! Sí, [respuesta]. Puedes verlo aquí: [enlace].\""],
+      ["Elogio", "Agradece de forma personal, sin plantilla evidente.", "\"¡Gracias, [nombre]! Nos alegra mucho que [detalle].\""],
+      ["Reclamo", "Reconoce, no discutas en público y pide los datos por privado.", "\"Lamentamos lo ocurrido, [nombre]. Escríbenos por mensaje privado con [dato] para ayudarte.\""],
+      ["Provocación o crisis", "No respondas en caliente. Informa a tu equipo y sigue el protocolo.", "Sin respuesta inmediata: primero se escala."]
+    ],
+    "recordatorios": [
+      "Nunca pidas datos personales en comentarios públicos.",
+      "Si dudas, pregunta antes de responder.",
+      "Borrar comentarios es el último recurso; ocultar o derivar suele ser mejor."
+    ]
+  },
+  "roles": {
+    "titulo": "Mapa de roles de la agencia",
+    "bajada": "El Community Manager está en contacto con casi todas las áreas. Así se conectan.",
+    "centro": "Community Manager",
+    "lista": [
+      ["Cuentas", "Relación con el cliente, brief y plazos."],
+      ["Redacción", "Textos, tono y voz de la marca."],
+      ["Dirección de Arte", "Línea gráfica y piezas visuales."],
+      ["Paid Media", "Pauta: segmentación, presupuesto y resultados."],
+      ["Social Media Manager", "Estrategia y coordinación de redes."],
+      ["Content / Creative", "Ideas, formatos y producción de contenido."],
+      ["Data / Planning", "Métricas, hallazgos y planificación."],
+      ["SAC", "Atención y resolución de casos de clientes."],
+      ["Influencer Marketing", "Búsqueda y gestión de creadores."]
+    ],
+    "nota": "Anota junto a cada rol el nombre de la persona con quien te coordinas."
+  }
+}
