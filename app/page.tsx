@@ -89,7 +89,7 @@ export default function ParticipantPage() {
   } else if (state.phase === 'lobby') {
     screen = <Waiting nickname={me.nickname} />;
   } else if (state.phase === 'final') {
-    screen = <Final me={me} />;
+    screen = state.spotlight === 'rec' ? <Recordings /> : <Final me={me} />;
   } else {
     const q = state.phase;
     if (me.answered[q]) screen = <Saved q={q} open={state.is_open} />;
@@ -382,18 +382,28 @@ function Final({ me }: { me: Me }) {
         </ul>
         <a className="btn" href={WORKSHOP.pdfFile} download>Descargar PDF</a>
       </div>
-      <div className="card card--forms">
-        <span className="kicker">Próximas grabaciones</span>
-        <h2>{WORKSHOP.formsTitle}</h2>
-        <p>{WORKSHOP.formsText}</p>
-        <a className="btn" href={WORKSHOP.formsUrl} target="_blank" rel="noreferrer">Quiero participar</a>
-      </div>
       {tips && me.specialty && (
         <div className="card">
           <span className="kicker">Tu camino: {roleLabel(me.specialty)}</span>
           <ul className="ticks">{tips.map((t) => <li key={t}>{t}</li>)}</ul>
         </div>
       )}
+    </div>
+  );
+}
+
+/* ---------- Última página: próximas grabaciones ---------- */
+
+function Recordings() {
+  return (
+    <div className="stack">
+      <div className="card card--forms">
+        <span className="kicker">Próximas grabaciones</span>
+        <h1>{WORKSHOP.formsTitle}</h1>
+        <p>{WORKSHOP.formsText}</p>
+        <a className="btn" href={WORKSHOP.formsUrl} target="_blank" rel="noreferrer">Quiero participar</a>
+      </div>
+      <a className="fine" href={WORKSHOP.pdfFile} download>¿Aún no descargas el kit? Toca aquí.</a>
     </div>
   );
 }

@@ -163,11 +163,16 @@ function Panel({ email }: { email: string }) {
           <span className={`chip${state.is_open ? ' chip--live' : ''}`}>
             {q ? (state.is_open ? 'Recibiendo respuestas' : state.opened_at ? 'Respuestas cerradas' : 'Aún sin abrir') : state.phase === 'lobby' ? 'Esperando participantes' : 'PDF disponible para todos'}
           </span>
-          <p className="control__q">{q ? QUESTIONS[q].title : state.phase === 'lobby' ? 'Comparte el QR y abre la primera pregunta cuando estés lista.' : 'Los participantes ya ven el botón de descarga.'}</p>
+          <p className="control__q">{q ? QUESTIONS[q].title : state.phase === 'lobby' ? 'Comparte el QR y abre la primera pregunta cuando estés lista.' : state.spotlight === 'rec' ? 'Se está proyectando el formulario de próximas grabaciones.' : 'Los participantes ya ven el botón de descarga. Al final, muestra el formulario de grabaciones.'}</p>
         </div>
         <div className="control__actions">
           {q && !state.is_open && state.opened_at && (
             <button className="btn btn--ghost" disabled={busy} onClick={() => setPhase(q, true)}>Reabrir respuestas</button>
+          )}
+          {state.phase === 'final' && (
+            <button className="btn btn--big" disabled={busy} onClick={() => run('admin_set_spotlight', { p_role: state.spotlight === 'rec' ? null : 'rec' })}>
+              {state.spotlight === 'rec' ? 'Volver al PDF' : 'Mostrar grabaciones (formulario)'}
+            </button>
           )}
           {primary && (
             <button className="btn btn--big" disabled={busy} onClick={() => setPhase(primary.phase, primary.open)}>{primary.label}</button>

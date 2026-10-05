@@ -353,3 +353,6 @@ button, input, textarea { font: inherit; color: inherit; }
 .final__item p { font-size: 1.3em; color: var(--texto-2); }
 .final__url { font-family: var(--display); font-weight: 800; font-size: 1.6em; background: var(--amarillo); color: #2a0f45; padding: 0.15em 0.6em; border-radius: 0.4em; word-break: break-all; }
 .final__item--forms .lobby__qr { box-shadow: 0.8em 0.8em 0 var(--amarillo); transform: rotate(-2deg); }
+
+.lobby__qr--forms { box-shadow: 0.8em 0.8em 0 var(--amarillo); transform: rotate(-2deg); }
+.card--forms h1 { font-size: 2rem; }
